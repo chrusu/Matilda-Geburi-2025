@@ -2,82 +2,82 @@ const storyData = [
     {
         title: "Matilda, die Entdeckerin",
         text: "Es war einmal eine mutige Abenteurerin namens Matilda, deren Lachen so strahlend war wie die Sonne über den verschneiten Alpen. 🏔️☀️",
-        image: "../whatsapp-fotos/strahlend im schnee.jpeg"
+        image: "whatsapp-fotos/strahlend im schnee.jpeg"
     },
     {
         title: "Kapitel 1: Der Ruf der Nebelberge",
         text: "Eines Sommers spürte Matilda den Ruf der Ferne. Sie reiste weit in den Norden, in ein Land der Mythen und Legenden: Schottland. 🏴󠁧󠁢󠁳󠁣󠁴󠁿",
-        image: "../whatsapp-fotos/reiseplanung.jpeg"
+        image: "whatsapp-fotos/reiseplanung.jpeg"
     },
     {
         title: "Die versteinerten Riesen",
         text: "Dort wanderte sie furchtlos zu den versteinerten Riesen, die man den 'Old Man of Storr' nennt. 🗿",
-        image: "../whatsapp-fotos/old man of  storr.jpeg"
+        image: "whatsapp-fotos/old man of  storr.jpeg"
     },
     {
         title: "Das gelbe Zauberschiff",
         text: "An der Küste, wo ein einsamer weißer Leuchtturm über das Meer wachte, bestieg sie ihr leuchtend gelbes Zauberschiff (ein Kajak). 🛶",
-        image: "../whatsapp-fotos/kajak.jpeg"
+        image: "whatsapp-fotos/kajak.jpeg"
     },
     {
         title: "Begegnung mit Nessie",
         text: "Und genau dort geschah es: Während sie mutig durch die Wellen paddelte, tauchte Nessie auf! 🦕✨",
-        image: "../whatsapp-fotos/loch ness.jpeg"
+        image: "whatsapp-fotos/loch ness.jpeg"
     },
     {
         title: "Das Geheimnis des Tees",
         text: "Nessie war begeistert von Matildas gelbem Boot und verriet ihr das Geheimnis des besten schottischen Tees, den Matilda später sicher im Warmen genoss. ☕️🌧️",
-        image: "../whatsapp-fotos/tee.jpeg"
+        image: "whatsapp-fotos/tee.jpeg"
     },
     {
         title: "Kapitel 2: Die neue Heimat",
         text: "Wieder zurück im Süden, traf Matilda eine wichtige Entscheidung. Sie wandte sich ab vom Reich der Zürcher und zog in die Stadt am See. 🌊",
-        image: "../whatsapp-fotos/bier bienne.jpeg"
+        image: "whatsapp-fotos/bier bienne.jpeg"
     },
     {
         title: "I ❤️ Biel",
         text: "Mit einem magischen Schild verkündete sie stolz: 'I ❤️ Biel'. Dort fand sie neue Kraftquellen... ❤️💙",
-        image: "../whatsapp-fotos/i love biel.jpeg"
+        image: "whatsapp-fotos/i love biel.jpeg"
     },
     {
         title: "Der kleine Mond",
         text: "...wie das geheimnisvolle 'Badhaus Bräu', dessen Schild in der Nacht wie ein kleiner Mond leuchtete... 🌕🍺",
-        image: "../whatsapp-fotos/badhaus bräu.jpeg"
+        image: "whatsapp-fotos/badhaus bräu.jpeg"
     },
     {
         title: "Der goldene Trank",
         text: "...und den goldenen Trank der Appenzeller (Quöllfrisch), der ihr stets gute Laune bescherte. 🍻",
-        image: "../whatsapp-fotos/quöllfrisch.jpeg"
+        image: "whatsapp-fotos/quöllfrisch.jpeg"
     },
     {
         title: "Kapitel 3: Die Geschichtenerzählerin",
         text: "Doch Matilda war nicht nur eine Reisende. Sie war auch eine Hüterin der Geschichten. 📖✨",
-        image: "../whatsapp-fotos/plattform 9 3/4.jpeg"
+        image: "whatsapp-fotos/plattform 9 3/4.jpeg"
     },
     {
         title: "Die staunenden Zuhörer",
         text: "Oft saß sie auf dem Boden, umringt von kleinen, staunenden Zuhörern, und las ihnen aus großen Büchern vor, bis die Welt um sie herum vergessen war. 👧👦",
-        image: "../whatsapp-fotos/geschichten erzählen am boden.jpeg"
+        image: "whatsapp-fotos/geschichten erzählen am boden.jpeg"
     },
     {
         title: "Kapitel 4: Der Winterzauber",
         text: "Als der Winter kam und die Welt in weißes Puderzucker-Licht tauchte, stieg Matilda hoch hinauf auf die Berge. ❄️🏔️",
-        image: "../whatsapp-fotos/langlauf.jpeg"
+        image: "whatsapp-fotos/langlauf.jpeg"
     },
     {
         title: "Der flauschige Freund",
         text: "Plötzlich hörte sie ein leises 'I-Ah'. Hinter einer Schneewehe trat ein kleiner, flauschiger Esel hervor. Er hatte das weichste Fell der Welt. 🫏❄️",
-        image: "../whatsapp-fotos/wegweiser im schnee.jpeg"
+        image: "whatsapp-fotos/wegweiser im schnee.jpeg"
     },
     {
         title: "Ein Versprechen",
         text: "Er flüsterte ihr zu, dass in Biel und in der weiten Welt noch viele Abenteuer auf sie warten würden. 🌍✨",
-        image: "../whatsapp-fotos/maps-route.jpeg"
+        image: "whatsapp-fotos/maps-route.jpeg"
     },
     {
         title: "Das Fest",
         text: "Und so feiert Matilda heute ihren Geburtstag, als Königin von Biel, Bezwingerin der Highlands und Freundin aller Esel und Seeungeheuer. 👑🎂",
-        image: "../whatsapp-fotos/schloss schottland.jpeg"
+        image: "whatsapp-fotos/schloss schottland.jpeg"
     }
 ];
 
