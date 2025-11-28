@@ -82,6 +82,7 @@ const storyData = [
 ];
 
 const stackContainer = document.getElementById('card-stack');
+const dismissedCards = [];
 
 // Initialize Stack
 function initStack() {
@@ -89,6 +90,11 @@ function initStack() {
     [...storyData].reverse().forEach((item, index) => {
         const card = document.createElement('div');
         card.classList.add('card');
+        
+        // Random rotation for messy pile effect
+        const randomRotation = (Math.random() - 0.5) * 10; // -5 to +5 degrees
+        card.style.transform = `rotate(${randomRotation}deg)`;
+        card.dataset.baseRotation = randomRotation;
         
         // HTML Content
         card.innerHTML = `
@@ -100,8 +106,8 @@ function initStack() {
                 <p>${item.text}</p>
                 <div class="decoration">❦</div>
             </div>
-            <div class="status status-like">WEITER</div>
-            <div class="status status-nope">ZURÜCK</div>
+            <div class="status status-like">ZURÜCK</div>
+            <div class="status status-nope">WEITER</div>
         `;
 
         stackContainer.appendChild(card);
@@ -118,104 +124,113 @@ function addSwipeLogic(card) {
     
     const threshold = 100; // px to swipe to trigger action
 
-    card.addEventListener('touchstart', (e) => {
+    function startDrag(clientX) {
         isDragging = true;
-        startX = e.touches[0].clientX;
+        startX = clientX;
+        card.classList.add('moving');
         card.style.transition = 'none';
-    });
+    }
 
-    card.addEventListener('touchmove', (e) => {
+    function moveDrag(clientX) {
         if (!isDragging) return;
         
-        currentX = e.touches[0].clientX;
+        currentX = clientX;
         const deltaX = currentX - startX;
-        const rotation = deltaX * 0.05; // Slight rotation
+        const baseRotation = parseFloat(card.dataset.baseRotation || 0);
+        const rotation = baseRotation + (deltaX * 0.05); 
         
         card.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`;
+        card.style.setProperty('--rotation', `${rotation}deg`);
         
         // Opacity for indicators
         if (deltaX > 0) {
-            card.querySelector('.status-like').style.opacity = Math.min(deltaX / 100, 1);
+            // Swiping Right (Back)
+            if (dismissedCards.length > 0) {
+                card.querySelector('.status-like').style.opacity = Math.min(deltaX / 100, 1);
+            } else {
+                card.querySelector('.status-like').style.opacity = 0;
+            }
             card.querySelector('.status-nope').style.opacity = 0;
         } else {
+            // Swiping Left (Next)
             card.querySelector('.status-nope').style.opacity = Math.min(Math.abs(deltaX) / 100, 1);
             card.querySelector('.status-like').style.opacity = 0;
         }
-    });
+    }
 
-    card.addEventListener('touchend', (e) => {
+    function endDrag(clientX) {
+        if (!isDragging) return;
         isDragging = false;
+        card.classList.remove('moving');
         const deltaX = currentX - startX;
         
         card.style.transition = 'transform 0.5s ease';
 
-        if (Math.abs(deltaX) > threshold) {
-            // Fly out
-            const direction = deltaX > 0 ? 1 : -1;
-            const endX = window.innerWidth * direction * 1.5;
+        if (deltaX < -threshold) {
+            // Swipe Left -> Next (Dismiss)
+            const endX = -window.innerWidth * 1.5;
+            card.style.transform = `translateX(${endX}px) rotate(-30deg)`;
             
-            card.style.transform = `translateX(${endX}px) rotate(${direction * 30}deg)`;
+            dismissedCards.push(card);
             
-            // Remove from DOM after animation
+            // Reset opacity of indicators
             setTimeout(() => {
-                card.remove();
-            }, 500);
+                card.querySelector('.status-nope').style.opacity = 0;
+            }, 200);
+
+        } else if (deltaX > threshold && dismissedCards.length > 0) {
+            // Swipe Right -> Back (Restore previous)
+            
+            // 1. Reset current card to center (with base rotation)
+            const baseRotation = parseFloat(card.dataset.baseRotation || 0);
+            card.style.transform = `translateX(0) rotate(${baseRotation}deg)`;
+            card.querySelector('.status-like').style.opacity = 0;
+
+            // 2. Bring back the last dismissed card
+            const lastCard = dismissedCards.pop();
+            if (lastCard) {
+                const lastBaseRotation = parseFloat(lastCard.dataset.baseRotation || 0);
+                lastCard.style.transition = 'transform 0.5s ease';
+                lastCard.style.transform = `translateX(0) rotate(${lastBaseRotation}deg)`;
+                
+                lastCard.querySelector('.status-nope').style.opacity = 0;
+                lastCard.querySelector('.status-like').style.opacity = 0;
+            }
+
         } else {
-            // Reset
-            card.style.transform = 'translateX(0) rotate(0)';
+            // Reset (Snap back)
+            const baseRotation = parseFloat(card.dataset.baseRotation || 0);
+            card.style.transform = `translateX(0) rotate(${baseRotation}deg)`;
             card.querySelector('.status-like').style.opacity = 0;
             card.querySelector('.status-nope').style.opacity = 0;
         }
         
         startX = 0;
         currentX = 0;
-    });
-    
-    // Mouse support for desktop testing
+    }
+
+    // Touch Events
+    card.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX));
+    card.addEventListener('touchmove', (e) => moveDrag(e.touches[0].clientX));
+    card.addEventListener('touchend', (e) => endDrag(currentX));
+
+    // Mouse Events
     card.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        card.style.transition = 'none';
-    });
+        startDrag(e.clientX);
+        
+        const mouseMoveHandler = (ev) => {
+            ev.preventDefault();
+            moveDrag(ev.clientX);
+        };
+        
+        const mouseUpHandler = (ev) => {
+            endDrag(ev.clientX);
+            document.removeEventListener('mousemove', mouseMoveHandler);
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
 
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault(); // Prevent selection
-        
-        currentX = e.clientX;
-        const deltaX = currentX - startX;
-        const rotation = deltaX * 0.05;
-        
-        card.style.transform = `translateX(${deltaX}px) rotate(${rotation}deg)`;
-        
-        if (deltaX > 0) {
-            card.querySelector('.status-like').style.opacity = Math.min(deltaX / 100, 1);
-            card.querySelector('.status-nope').style.opacity = 0;
-        } else {
-            card.querySelector('.status-nope').style.opacity = Math.min(Math.abs(deltaX) / 100, 1);
-            card.querySelector('.status-like').style.opacity = 0;
-        }
-    });
-
-    document.addEventListener('mouseup', (e) => {
-        if (!isDragging) return;
-        isDragging = false;
-        const deltaX = currentX - startX;
-        
-        card.style.transition = 'transform 0.5s ease';
-
-        if (Math.abs(deltaX) > threshold) {
-            const direction = deltaX > 0 ? 1 : -1;
-            const endX = window.innerWidth * direction * 1.5;
-            card.style.transform = `translateX(${endX}px) rotate(${direction * 30}deg)`;
-            setTimeout(() => card.remove(), 500);
-        } else {
-            card.style.transform = 'translateX(0) rotate(0)';
-            card.querySelector('.status-like').style.opacity = 0;
-            card.querySelector('.status-nope').style.opacity = 0;
-        }
-        startX = 0;
-        currentX = 0;
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
     });
 }
 
