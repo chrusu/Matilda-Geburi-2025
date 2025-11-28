@@ -98,13 +98,17 @@ function initStack() {
         
         // HTML Content
         card.innerHTML = `
+            <div class="star star-tl">★</div>
+            <div class="star star-tr">★</div>
+            <div class="star star-bl">★</div>
+            <div class="star star-br">★</div>
+            
             <div class="card-image-container">
                 <img src="${item.image}" class="card-image" alt="${item.title}" onerror="this.src='https://placehold.co/600x400?text=Bild+fehlt'">
             </div>
             <div class="card-content">
                 <h3>${item.title}</h3>
                 <p>${item.text}</p>
-                <div class="decoration">❦</div>
             </div>
             <div class="status status-like">ZURÜCK</div>
             <div class="status status-nope">WEITER</div>

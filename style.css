@@ -1,10 +1,10 @@
 :root {
-    --primary: #ff8b94;
-    --secondary: #a8e6cf;
-    --bg: #fdfcf0;
-    --card-bg: #ffffff;
-    --text: #555;
-    --accent: #ffd3b6;
+    --primary: #ff6b81;
+    --secondary: #7bed9f;
+    --accent: #ffa502;
+    --bg-1: #dfe6e9;
+    --bg-2: #ffffff;
+    --text: #2f3542;
 }
 
 * {
@@ -15,10 +15,12 @@
 
 body {
     font-family: 'Patrick Hand', cursive;
-    background-color: var(--bg);
-    /* Lined paper background */
-    background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
-    background-size: 100% 1.5rem;
+    background: #70a1ff;
+    background-image: 
+        radial-gradient(#ffffff 15%, transparent 16%),
+        radial-gradient(#ffffff 15%, transparent 16%);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -40,21 +42,27 @@ body {
     padding: 20px;
     text-align: center;
     z-index: 10;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .header h1 {
     font-family: 'Indie Flower', cursive;
-    font-size: 2.5rem;
-    color: #ff6f69;
-    text-shadow: 2px 2px 0px #fff;
-    transform: rotate(-2deg);
+    font-size: 3rem;
+    color: #ffffff;
+    text-shadow: 4px 4px 0px #ff4757;
+    transform: rotate(-3deg);
+    background: #2ed573;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 30px;
+    border: 4px solid #ffffff;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.1);
 }
 
 .card-stack {
     flex: 1;
     position: relative;
-    margin: 40px 20px;
+    margin: 30px;
     perspective: 1000px;
 }
 
@@ -64,50 +72,52 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--card-bg);
-    /* Polaroid style */
-    padding: 15px 15px 60px 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    background: #ffffff;
+    border-radius: 40px;
+    padding: 20px;
+    box-shadow: 
+        0 10px 20px rgba(0,0,0,0.15),
+        0 0 0 10px rgba(255,255,255,0.4); /* Outer glow ring */
     transform-origin: 50% 100%;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy transition */
     display: flex;
     flex-direction: column;
     user-select: none;
     -webkit-user-select: none;
     touch-action: none;
-    border: 1px solid #ddd;
+    border: 8px solid #ff6b81;
+    overflow: visible; /* Allow stars to pop out */
 }
 
-/* Tape effect */
-.card::before {
-    content: '';
+/* Stars in corners */
+.star {
     position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 100px;
-    height: 30px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-left: 1px dashed rgba(0,0,0,0.1);
-    border-right: 1px dashed rgba(0,0,0,0.1);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 2;
+    font-size: 3rem;
+    color: #ffa502;
+    text-shadow: 2px 2px 0px #ff6348;
+    z-index: 20;
+    pointer-events: none;
 }
+
+.star-tl { top: -25px; left: -25px; transform: rotate(-20deg); }
+.star-tr { top: -25px; right: -25px; transform: rotate(20deg); }
+.star-bl { bottom: -25px; left: -25px; transform: rotate(-45deg); }
+.star-br { bottom: -25px; right: -25px; transform: rotate(10deg); }
 
 .card-image-container {
     width: 100%;
-    height: 60%;
+    height: 55%;
     position: relative;
     overflow: hidden;
-    background: #000;
-    border: 1px solid #ccc;
+    border-radius: 25px;
+    border: 4px dashed #7bed9f;
+    background: #f1f2f6;
 }
 
 .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background-color: #eee;
 }
 
 .card-content {
@@ -121,16 +131,18 @@ body {
 
 .card-content h3 {
     font-family: 'Indie Flower', cursive;
-    color: #ff6f69;
+    color: #ff4757;
     margin-bottom: 10px;
-    font-size: 1.8rem;
-    line-height: 1.2;
+    font-size: 2rem;
+    line-height: 1.1;
+    text-shadow: 1px 1px 0px #ffeaa7;
 }
 
 .card-content p {
-    color: var(--text);
+    color: #2f3542;
     line-height: 1.4;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    font-weight: bold;
 }
 
 .end-card {
@@ -146,85 +158,83 @@ body {
     text-align: center;
     z-index: 0;
     padding: 40px;
-    background: rgba(255,255,255,0.9);
-    border-radius: 5px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transform: rotate(2deg);
+    background: rgba(255,255,255,0.95);
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border: 8px solid #ffa502;
 }
 
 .end-card h2 {
     font-family: 'Indie Flower', cursive;
-    color: #ff6f69;
+    color: #ff4757;
     margin-bottom: 20px;
-    font-size: 2.5rem;
+    font-size: 3rem;
+    transform: rotate(-5deg);
 }
 
 .end-card button {
     margin-top: 30px;
-    padding: 10px 30px;
-    background: #ff8b94;
+    padding: 15px 40px;
+    background: #2ed573;
     color: white;
-    border: none;
-    border-radius: 25px;
-    font-size: 1.2rem;
-    font-family: 'Patrick Hand', cursive;
+    border: 4px solid white;
+    border-radius: 50px;
+    font-size: 1.5rem;
+    font-family: 'Indie Flower', cursive;
     cursor: pointer;
-    box-shadow: 0 4px 0px #d66b74;
+    box-shadow: 0 8px 0 #26af61;
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .end-card button:active {
-    transform: translateY(4px);
-    box-shadow: 0 0 0 #d66b74;
+    transform: translateY(8px);
+    box-shadow: 0 0 0 #26af61;
 }
 
 .controls {
     padding: 20px;
     text-align: center;
-    color: #888;
-    font-size: 1rem;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.2);
 }
 
 /* Status indicators */
 .status {
     position: absolute;
-    top: 20px;
-    padding: 5px 15px;
-    border: 3px solid;
-    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Sketchy border */
-    font-weight: bold;
-    font-size: 1.5rem;
+    top: 50%;
+    padding: 10px 30px;
+    border: 6px solid;
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 2rem;
     text-transform: uppercase;
     opacity: 0;
-    transform: scale(0.5);
+    transform: translate(-50%, -50%) scale(0.5);
     transition: opacity 0.2s, transform 0.2s;
     z-index: 100;
-    background: rgba(255,255,255,0.9);
+    background: #ffffff;
     font-family: 'Indie Flower', cursive;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .status-nope {
-    right: 20px;
-    color: #ff6f69;
-    border-color: #ff6f69;
-    transform: rotate(15deg);
+    right: auto;
+    left: 75%;
+    color: #ff4757;
+    border-color: #ff4757;
+    transform: translate(-50%, -50%) rotate(15deg);
 }
 
 .status-like {
-    left: 20px;
-    color: #a8e6cf;
-    border-color: #a8e6cf;
-    transform: rotate(-15deg);
+    left: 25%;
+    color: #2ed573;
+    border-color: #2ed573;
+    transform: translate(-50%, -50%) rotate(-15deg);
 }
 
 .card.moving .status {
     opacity: 1;
-    transform: scale(1) rotate(var(--rotation));
-}
-
-/* Decorative elements */
-.decoration {
-    font-size: 2rem;
-    margin-top: 5px;
-    color: #ffd3b6;
+    transform: translate(-50%, -50%) scale(1) rotate(var(--rotation));
 }
